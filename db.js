@@ -12,11 +12,11 @@ var tabsDB = (function() {
 			callback(request.result);
 		}
 	};
- 
+
 	var open = function(callback) {
 	    if(!isOpen) {
 	    	var openRequest = indexedDB.open("iwanttoknowme",4);
-	 
+
 		    openRequest.onupgradeneeded = function(e) {
 		        var thisDB = e.target.result;
 		        thisDB.deleteObjectStore("activeTabs");
@@ -25,7 +25,7 @@ var tabsDB = (function() {
 				store.createIndex("endDate","endDate", {unique:false});
 				store.createIndex("startDate","startDate", {unique:false});
 		    }
-		 
+
 		    openRequest.onsuccess = function(e) {
 		        console.log("running onsuccess");
 		        db = e.target.result;
@@ -35,7 +35,7 @@ var tabsDB = (function() {
 		        	callback();
 		        });
 		    }
-		 
+
 		    openRequest.onerror = function(e) {
 		        console.log("error opening table");
 		    }
@@ -50,11 +50,11 @@ var tabsDB = (function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
 		 	var request = store.add(newActiveTab, idx++);
-		 
+
 		    request.onerror = function(e) {
 		        console.log("addActiveTab error",e.target.error.name);
 		    }
-		 
+
 		    request.onsuccess = function(e) {
 		        console.log("addActiveTab success");
 		    }
@@ -67,11 +67,11 @@ var tabsDB = (function() {
 		    var store = transaction.objectStore("activeTabs");
 		    var results = [];
 		 	var request = store.openCursor();
-		 
+
 		    request.onerror = function(e) {
 		        console.log("getAllActiveTabs error",e.target.error.name);
 		    }
-		 
+
 		    request.onsuccess = function(e) {
 		    	var cursor = e.target.result;
 		    	if(cursor) {
@@ -85,6 +85,7 @@ var tabsDB = (function() {
 		});
 	};
 
+	// name is inverted supposed to be (start, end) Thanks Yusuf! :P
 	tDB.filterRange = function(field, end, start, callback) {
 		open(function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
