@@ -26,7 +26,7 @@ var tabsXFilter = (function() {
 		tabsXFilter.getDomainDimension = function() {
 			return this.dimension(function(d) {
 				return d.domain;
-			}
+			});
 		};
 	};
 
