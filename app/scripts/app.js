@@ -24,6 +24,11 @@ angular
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
+      .when('/browsinghabit', {
+        templateUrl: 'views/browsinghabit.html',
+        controller: 'BrowsinghabitCtrl',
+        controllerAs: 'browsinghabit'
+      })
       .otherwise({
         redirectTo: '/'
       });
