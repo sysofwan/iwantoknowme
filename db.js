@@ -12,19 +12,20 @@ var tabsDB = (function() {
 			callback(request.result);
 		}
 	};
- 
+
 	var open = function(callback) {
 	    if(!isOpen) {
-	    	var openRequest = indexedDB.open("iwanttoknowme",1);
-	 
+	    	var openRequest = indexedDB.open("iwanttoknowme",4);
+
 		    openRequest.onupgradeneeded = function(e) {
 		        var thisDB = e.target.result;
-		 
-		        if(!thisDB.objectStoreNames.contains("activeTabs")) {
-		            thisDB.createObjectStore("activeTabs");
-		        }
+		        thisDB.deleteObjectStore("activeTabs");
+	            var store = thisDB.createObjectStore("activeTabs");
+	            store.createIndex("domain","domain", {unique:false});
+				store.createIndex("endDate","endDate", {unique:false});
+				store.createIndex("startDate","startDate", {unique:false});
 		    }
-		 
+
 		    openRequest.onsuccess = function(e) {
 		        console.log("running onsuccess");
 		        db = e.target.result;
@@ -34,7 +35,7 @@ var tabsDB = (function() {
 		        	callback();
 		        });
 		    }
-		 
+
 		    openRequest.onerror = function(e) {
 		        console.log("error opening table");
 		    }
@@ -49,11 +50,11 @@ var tabsDB = (function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
 		 	var request = store.add(newActiveTab, idx++);
-		 
+
 		    request.onerror = function(e) {
 		        console.log("addActiveTab error",e.target.error.name);
 		    }
-		 
+
 		    request.onsuccess = function(e) {
 		        console.log("addActiveTab success");
 		    }
@@ -64,30 +65,51 @@ var tabsDB = (function() {
 		open(function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
-		    var result = [];
+		    var results = [];
 		 	var request = store.openCursor();
-		 
+
 		    request.onerror = function(e) {
 		        console.log("getAllActiveTabs error",e.target.error.name);
 		    }
-		 
+
 		    request.onsuccess = function(e) {
 		    	var cursor = e.target.result;
 		    	if(cursor) {
-		    		result.push(cursor.value);
+		    		results.push(cursor.value);
 		    		cursor.continue();
 		    	}
 		    	else {
-		    		callback(result);
+		    		callback(results);
 		    	}
 		    }
 		});
 	};
 
-	tDB.and = function() {
-		open(function(valuesArr, rangesArr) {
+	// name is inverted supposed to be (start, end) Thanks Yusuf! :P
+	tDB.filterRange = function(field, end, start, callback) {
+		open(function() {
+			var transaction = db.transaction(["activeTabs"],"readwrite");
+		    var store = transaction.objectStore("activeTabs");
+		    var range = IDBKeyRange.bound(end, start);
+            var index = store.index(field);
+            var request = index.openCursor(range);
+            var results = [];
 
+            request.onsuccess = function(e) {
+            	var cursor = e.target.result;
+		    	if(cursor) {
+		    		results.push(cursor.value);
+		    		cursor.continue();
+		    	}
+		    	else {
+		    		callback(results);
+		    	}
+            };
 		});
+	};
+
+	tDB.filterValue = function(field, value, callback) {
+		tDB.filterRange(field, value, value, callback);
 	};
 
 	return tDB;

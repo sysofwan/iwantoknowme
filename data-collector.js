@@ -69,10 +69,4 @@
 			});
 		}
 	});
-
-	setInterval(function() {
-		tabsDB.getAll(function(res) {
-			console.log(res);
-		});
-	}, 100000);
 }());
