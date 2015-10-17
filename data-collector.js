@@ -9,7 +9,7 @@
 	var saveTab = function() {
 		if (currentTab) {
 			data = {
-				titlecurrentTab.title,
+				title:currentTab.title,
 				url:currentTab.url,
 				startDate:currentTabStartTime,
 				endDate:new Date()
