@@ -3,6 +3,15 @@ var tabsDB = (function() {
 	var db;
 	var idx = 0;
 	var isOpen = false;
+
+	var getCount = function(callback) {
+		var transaction = db.transaction(["activeTabs"],"readwrite");
+    	var store = transaction.objectStore("activeTabs");
+        var request = store.count();
+		request.onsuccess = function() {
+			callback(request.result);
+		}
+	};
  
 	var open = function(callback) {
 	    if(!isOpen) {
@@ -19,8 +28,11 @@ var tabsDB = (function() {
 		    openRequest.onsuccess = function(e) {
 		        console.log("running onsuccess");
 		        db = e.target.result;
-		        isOpen = true;
-		        callback();
+		        getCount(function(count) {
+		        	idx = count;
+		        	isOpen = true;
+		        	callback();
+		        });
 		    }
 		 
 		    openRequest.onerror = function(e) {
