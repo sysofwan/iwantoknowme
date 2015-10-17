@@ -4,17 +4,17 @@
 
 	var currentTab;
 	var currentTabStartTime;
-	var data = {};
+	var tabViews = [];
 
 	var saveTab = function() {
 		if (currentTab) {
 			data = {
-				title:currentTab.title,
+				titlecurrentTab.title,
 				url:currentTab.url,
 				startDate:currentTabStartTime,
 				endDate:new Date()
 			};
-			console.log(data);
+			tabViews.push(data)
 		}
 	};
 
