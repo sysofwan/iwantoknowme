@@ -19,7 +19,9 @@ var tabsDB = (function() {
 
 		    openRequest.onupgradeneeded = function(e) {
 		        var thisDB = e.target.result;
-		        thisDB.deleteObjectStore("activeTabs");
+		        if(thisDB.objectStoreNames.contains("activeTabs")) {
+		        	thisDB.deleteObjectStore("activeTabs");
+		        }
 	            var store = thisDB.createObjectStore("activeTabs");
 	            store.createIndex("domain","domain", {unique:false});
 				store.createIndex("endDate","endDate", {unique:false});
@@ -86,11 +88,11 @@ var tabsDB = (function() {
 	};
 
 	// name is inverted supposed to be (start, end) Thanks Yusuf! :P
-	tDB.filterRange = function(field, end, start, callback) {
+	tDB.filterRange = function(field, start, end, callback) {
 		open(function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
-		    var range = IDBKeyRange.bound(end, start);
+		    var range = IDBKeyRange.bound(start, end);
             var index = store.index(field);
             var request = index.openCursor(range);
             var results = [];
