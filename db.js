@@ -3,6 +3,15 @@ var tabsDB = (function() {
 	var db;
 	var idx = 0;
 	var isOpen = false;
+
+	var getCount = function(callback) {
+		var transaction = db.transaction(["activeTabs"],"readwrite");
+    	var store = transaction.objectStore("activeTabs");
+        var request = store.count();
+		request.onsuccess = function() {
+			callback(request.result);
+		}
+	};
  
 	var open = function(callback) {
 	    if(!isOpen) {
@@ -19,8 +28,11 @@ var tabsDB = (function() {
 		    openRequest.onsuccess = function(e) {
 		        console.log("running onsuccess");
 		        db = e.target.result;
-		        isOpen = true;
-		        callback();
+		        getCount(function(count) {
+		        	idx = count;
+		        	isOpen = true;
+		        	callback();
+		        });
 		    }
 		 
 		    openRequest.onerror = function(e) {
@@ -52,16 +64,20 @@ var tabsDB = (function() {
 		open(function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
-		 	var cursor = store.openCursor();
+		    var result = [];
+		 	var request = store.openCursor();
 		 
-		    cursor.onerror = function(e) {
+		    request.onerror = function(e) {
 		        console.log("getAllActiveTabs error",e.target.error.name);
 		    }
 		 
-		    cursor.onsuccess = function(e) {
-		    	var res = e.target.result;
-		    	console.log("getAllActiveTabs success");
-		    	callback(res);
+		    request.onsuccess = function(e) {
+		    	var cursor = e.target.result;
+		    	if(cursor) {
+		    		result.push(cursor.value);
+		    		cursor.continue();
+		    	}
+		    	callback(result);
 		    }
 		});
 	};
