@@ -2,24 +2,37 @@ var tabsXFilter = (function() {
 	var module = {};
 	var addXFilterExtensions = function(tabsXFilter) {
 
+		tabsXFilter.getMinuteDimension = function() {
+			return this.dimension(function(d) {
+				var date = new Date(+d.startDate);
+				date.setSeconds(0);
+				return date;
+			});
+		};
+
+
 		tabsXFilter.getHourDimension = function() {
 			return this.dimension(function(d) {
-				d.startDate.getHours();
+				var date = new Date(+d.startDate);
+				date.setSeconds(0).setMinutes(0);
+				return date;
 			});
 		};
 
 		tabsXFilter.getDateDimension = function() {
 			return this.dimension(function(d) {
-				d.startDate.getDate();
+				var date = new Date(+d.startDate);
+				date.setSeconds(0).setMinutes(0).setHours(0);
+				return date;
 			});
 		};
 
 		tabsXFilter.getWeekOfTheYearDimension = function() {
 			return this.dimension(function(d) {
 				var date = new Date(+d.startDate);
-				date.setHours(0,0,0);
-				date.setDate(date.getDate()+4-(date.getDay()||7));
-				return Math.ceil((((date-new Date(date.getFullYear(),0,1))/8.64e7)+1)/7);
+				var distance = date.getDay();
+				date.setDate(date.getDate() - distance);
+				return date;
 			});
 		};
 
