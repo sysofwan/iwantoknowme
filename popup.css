@@ -1,0 +1,17 @@
+body {
+	background-color: #3B424C;
+}
+
+.navbar.navbar-default {
+	border: none;
+	min-height: 30px;
+}
+
+.navbar-default {
+	background-color: #FF5335;
+}
+
+.navbar-default .navbar-brand {
+	height: 40px;
+	padding: 10px 10px;
+}
