@@ -28,23 +28,24 @@ var tabsXFilter = (function() {
 				return d.domain;
 			});
 		};
+		return tabsXFilter;
 	};
 
 	module.getAllDataXFilter = function(callback) {
 		tabsDB.getAll(function(res) {
-			return (addXFilterExtensions(crossfilter(res)));
+			callback(addXFilterExtensions(crossfilter(res)));
 		})
 	};
 
 	module.getDomainDataXFilter = function(domain, callback) {
 		tabsDB.filterValue("domain", domain, function(res) {
-			return (addXFilterExtensions(crossfilter(res)));
+			callback(addXFilterExtensions(crossfilter(res)));
 		});
 	};
 
 	module.getRangeDataXFilter = function(startDate, endDate, callback) {
 		tabsDB.filterRange("startDate", startDate, endDate, function(res) {
-			return (addXFilterExtensions(crossfilter(res)));
+			callback(addXFilterExtensions(crossfilter(res)));
 		});
 	};
 
