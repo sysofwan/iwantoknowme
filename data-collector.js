@@ -14,7 +14,7 @@
 				startDate:currentTabStartTime,
 				endDate:new Date()
 			};
-			tabViews.push(data)
+			tabViews.push(data);
 		}
 	};
 
@@ -41,4 +41,4 @@
 
 
 
-}());
+})();
