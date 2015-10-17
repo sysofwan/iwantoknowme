@@ -15,14 +15,15 @@ var tabsDB = (function() {
  
 	var open = function(callback) {
 	    if(!isOpen) {
-	    	var openRequest = indexedDB.open("iwanttoknowme",1);
+	    	var openRequest = indexedDB.open("iwanttoknowme",3);
 	 
 		    openRequest.onupgradeneeded = function(e) {
 		        var thisDB = e.target.result;
-		 
-		        if(!thisDB.objectStoreNames.contains("activeTabs")) {
-		            thisDB.createObjectStore("activeTabs");
-		        }
+		        thisDB.deleteObjectStore("activeTabs");
+	            var store = thisDB.createObjectStore("activeTabs");
+	            store.createIndex("domain","domain", {unique:false});
+				store.createIndex("endDate","endDate", {unique:false});
+				store.createIndex("startDate","startDate", {unique:false});
 		    }
 		 
 		    openRequest.onsuccess = function(e) {
@@ -64,7 +65,7 @@ var tabsDB = (function() {
 		open(function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
-		    var result = [];
+		    var results = [];
 		 	var request = store.openCursor();
 		 
 		    request.onerror = function(e) {
@@ -74,19 +75,35 @@ var tabsDB = (function() {
 		    request.onsuccess = function(e) {
 		    	var cursor = e.target.result;
 		    	if(cursor) {
-		    		result.push(cursor.value);
+		    		results.push(cursor.value);
 		    		cursor.continue();
 		    	}
 		    	else {
-		    		callback(result);
+		    		callback(results);
 		    	}
 		    }
 		});
 	};
 
-	tDB.and = function() {
-		open(function(valuesArr, rangesArr) {
+	tDB.filterRange = function(field, end, start, callback) {
+		open(function() {
+			var transaction = db.transaction(["activeTabs"],"readwrite");
+		    var store = transaction.objectStore("activeTabs");
+		    var range = IDBKeyRange.bound(end, start);
+            var index = store.index("name");
+            var request = index.openCursor(range);
+            var results = [];
 
+            request.onsuccess = function(e) {
+            	var cursor = e.target.result;
+		    	if(cursor) {
+		    		results.push(cursor.value);
+		    		cursor.continue();
+		    	}
+		    	else {
+		    		callback(results);
+		    	}
+            };
 		});
 	};
 
