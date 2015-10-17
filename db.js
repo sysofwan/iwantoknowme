@@ -15,7 +15,7 @@ var tabsDB = (function() {
  
 	var open = function(callback) {
 	    if(!isOpen) {
-	    	var openRequest = indexedDB.open("iwanttoknowme",3);
+	    	var openRequest = indexedDB.open("iwanttoknowme",4);
 	 
 		    openRequest.onupgradeneeded = function(e) {
 		        var thisDB = e.target.result;
@@ -90,7 +90,7 @@ var tabsDB = (function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
 		    var range = IDBKeyRange.bound(end, start);
-            var index = store.index("name");
+            var index = store.index(field);
             var request = index.openCursor(range);
             var results = [];
 
@@ -105,6 +105,10 @@ var tabsDB = (function() {
 		    	}
             };
 		});
+	};
+
+	tDB.filterValue = function(field, value, callback) {
+		tDB.filterRange(field, value, value, callback);
 	};
 
 	return tDB;
