@@ -24,6 +24,9 @@
 			currentTab = tab;
 			currentTabStartTime = new Date();
 		});
+		if(tabViews.length != 0){
+			console.log(tabViews[0]["endDate"])
+		}
 	});
 
 	windows.onFocusChanged.addListener(function(windowId) {
@@ -38,6 +41,8 @@
 			});
 		}
 	});
+
+
 
 
 
