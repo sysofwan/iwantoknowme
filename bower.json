@@ -1,0 +1,17 @@
+{
+  "name": "iwantoknowme",
+  "version": "1",
+  "homepage": "https://github.com/sysofwan/iwantoknowme",
+  "description": "Find out your browsing habits",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  }
+}
