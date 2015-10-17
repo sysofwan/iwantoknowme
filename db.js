@@ -77,8 +77,16 @@ var tabsDB = (function() {
 		    		result.push(cursor.value);
 		    		cursor.continue();
 		    	}
-		    	callback(result);
+		    	else {
+		    		callback(result);
+		    	}
 		    }
+		});
+	};
+
+	tDB.and = function() {
+		open(function(valuesArr, rangesArr) {
+
 		});
 	};
 
