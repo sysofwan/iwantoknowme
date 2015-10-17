@@ -69,13 +69,4 @@
 			});
 		}
 	});
-
-	setInterval(function() {
-		var hourBefore = new Date();
-		hourBefore.setHours(hourBefore.getHours() - 1);
-		console.log(hourBefore);
-		tabsDB.filterValue("domain", "www.facebook.com", function(res) {
-			console.log(res);
-		});
-	}, 3000);
 }());
