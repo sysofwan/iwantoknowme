@@ -11,6 +11,8 @@
     "unlimitedStorage"
   ],
   "background": {
-    "scripts": ["bower_components/lodash/lodash.min.js", "util.js", "db.js", "data-collector.js"]
+    "scripts": ["bower_components/lodash/lodash.min.js",
+                "bower_components/crossfilter/crossfilter.min.js",
+                "util.js", "db.js", "data-collector.js"]
   }
 }
