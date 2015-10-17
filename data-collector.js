@@ -4,10 +4,17 @@
 
 	var currentTab;
 	var currentTabStartTime;
+	var data = {};
 
 	var saveTab = function() {
 		if (currentTab) {
-			console.log("tab start:", currentTabStartTime, "tab end", new Date());
+			data = {
+				title:currentTab.title,
+				url:currentTab.url,
+				startDate:currentTabStartTime,
+				endDate:new Date()
+			};
+			console.log(data);
 		}
 	};
 
