@@ -4,10 +4,17 @@
 
 	var currentTab;
 	var currentTabStartTime;
+	var tabViews = [];
 
 	var saveTab = function() {
 		if (currentTab) {
-			console.log("tab start:", currentTabStartTime, "tab end", new Date(), "tab_title", currentTab.title);
+			data = {
+				title:currentTab.title,
+				url:currentTab.url,
+				startDate:currentTabStartTime,
+				endDate:new Date()
+			};
+			tabViews.push(data);
 		}
 	};
 
@@ -17,6 +24,9 @@
 			currentTab = tab;
 			currentTabStartTime = new Date();
 		});
+		if(tabViews.length != 0){
+			console.log(tabViews[0]["endDate"])
+		}
 	});
 
 	windows.onFocusChanged.addListener(function(windowId) {
