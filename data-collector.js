@@ -33,12 +33,6 @@
 		}
 	};
 
-	var kaka = {name:"kaka", email:"kaka"};
-	tabsDB.add(kaka);
-	tabsDB.getAll(function(result) {
-		console.log(result);
-	});
-
 	tabsLib.onActivated.addListener(function(activeInfo) {
 		console.log('onActivated called');
 		tabsLib.get(activeInfo.tabId, function(tab) {
