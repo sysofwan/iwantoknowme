@@ -7,7 +7,7 @@
 
 	var saveTab = function() {
 		if (currentTab) {
-			console.log("tab start:", currentTabStartTime, "tab end", new Date());
+			console.log("tab start:", currentTabStartTime, "tab end", new Date(), "tab_title", currentTab.title);
 		}
 	};
 
@@ -20,18 +20,18 @@
 	});
 
 	windows.onFocusChanged.addListener(function(windowId) {
-		if (windowId == windows.WINDOW_ID_NONE) {
-			saveTab();
-			var currentTab = null;
-			var currentTabStartTime = null;
-		} else {
-			tabsLib.getCurrent(function(tab) {
-				currentTab = tab;
-				currentTabStartTime = new Date();
+		saveTab();
+		currentTab = null;
+		currentTabStartTime = null;
+		if (windowId != windows.WINDOW_ID_NONE) {
+			windows.get(windowId, function(window) {
+				if (window.type == "normal") {
+					tabsLib.query({active: true, windowId: windowId}, function(tab) {
+						currentTab = tab[0];
+						currentTabStartTime = new Date();
+					});
+				}
 			});
 		}
 	});
-
-
-
 }());
