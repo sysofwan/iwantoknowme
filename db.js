@@ -52,16 +52,20 @@ var tabsDB = (function() {
 		open(function() {
 			var transaction = db.transaction(["activeTabs"],"readwrite");
 		    var store = transaction.objectStore("activeTabs");
-		 	var cursor = store.openCursor();
+		    var result = [];
+		 	var request = store.openCursor();
 		 
-		    cursor.onerror = function(e) {
+		    request.onerror = function(e) {
 		        console.log("getAllActiveTabs error",e.target.error.name);
 		    }
 		 
-		    cursor.onsuccess = function(e) {
-		    	var res = e.target.result;
-		    	console.log("getAllActiveTabs success");
-		    	callback(res);
+		    request.onsuccess = function(e) {
+		    	var cursor = e.target.result;
+		    	if(cursor) {
+		    		result.push(cursor.value);
+		    		cursor.continue();
+		    	}
+		    	callback(result);
 		    }
 		});
 	};
