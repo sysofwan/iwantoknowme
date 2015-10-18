@@ -12,7 +12,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
 
   var durationGroup = dimHelper(dim);
 
-  yearChart.width(1750) 
+  yearChart.width(1200) 
           .height(50)
           .margins({top: 0, right: 50, bottom: 20, left: 40})
           .dimension(dim)
@@ -26,7 +26,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
 
   var yearLineChart = dc.lineChart('#year-line-chart');
   yearLineChart.renderArea(true)
-              .width(1750)
+              .width(1200)
               .height(200)
               .transitionDuration(1000)
               .margins({top: 30, right: 50, bottom: 25, left: 40})
@@ -44,15 +44,16 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
   var domainChart = dc.rowChart('#domain-chart');
   var domainDim = crossFtr.getDomainDimension();
   var domainDurationGroup = dimHelper(domainDim);
-  domainChart.width(700)
-            .height(275)
+  domainChart.width(500)
+            .height(175)
             .margins({top: 20, left: 10, right: 10, bottom: 20})
             .dimension(domainDim)
             .group(domainDurationGroup)
             .colors(['#a4a8a4', '#acdfd2', '#dcda98', '#f29885', '#a4a8a4', '#acdfd2', '#dcda98', '#f29885', '#a4a8a4', '#acdfd2', '#dcda98', '#f29885'])
             .title(function (d) {
-                return d.value;
+                return -d.value;
             })
+            .rowsCap(5)
             .elasticX(true)
             .xAxis().ticks(4);
   console.log(domainDurationGroup.top(5));
@@ -61,8 +62,8 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
   var hourIntDim = crossFtr.getHourIntDimension();
   var durationIntGroup = dimHelper(hourIntDim);
   hourIntChart
-    .width(700)
-    .height(275)
+    .width(500)
+    .height(175)
     .margins({top: 10, right: 50, bottom: 20, left: 40})
     .dimension(hourIntDim)
     .group(durationIntGroup)

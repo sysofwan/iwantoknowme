@@ -8,6 +8,7 @@
 
   "permissions": [
     "tabs",
+    "idle",
     "storage"
   ],
   "background": {
@@ -16,8 +17,9 @@
                 "util.js", "db.js", "data-collector.js"]
   },
   "browser_action": {
-    "default_title": "Google Mail",
-    "default_popup": "popup.html"
+    "default_title": "iwantoknowme",
+    "default_popup": "popup.html",
+    "default_icon": "images/icon.png"
   },
   "options_page": "browsinghabit.html"
 }

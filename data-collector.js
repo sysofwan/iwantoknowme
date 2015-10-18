@@ -70,4 +70,10 @@
 			});
 		}
 	});
+
+	chrome.idle.onStateChanged.addListener(function(newState) {
+		if (newState == "idle" || newState ==  "locked") {
+			changeCurrentTab(null);
+		}
+	});
 }());
