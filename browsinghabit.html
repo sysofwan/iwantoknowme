@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html ng-app>
+<html ng-app="browsingAnalyticsApp">
   <head>
     <title>Browsing Habit</title>
     <meta charset="UTF-8">
@@ -42,10 +42,11 @@
       <div class="col-md-2">
         <div class="panel panel-primary panel1">
           <div class="panel-heading">
-
+            Goals
           </div>
-          <div class="panel-body">
-
+          <div class="panel-body" ng-controller="GoalsController">
+            Domain: <input ng-model="domain">
+            Duration: <input ng-model="duration">
           </div>
         </div>
       </div>
