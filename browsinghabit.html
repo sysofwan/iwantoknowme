@@ -8,6 +8,7 @@
     <script src="bower_components/crossfilter/crossfilter.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/dcjs/dc.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="bower_components/dcjs/dc.css"></link>
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css"></link>
@@ -19,29 +20,31 @@
   <body>
     <div class="row">
       <div class="col-md-5">
-        <div class="panel panel-primary panel1">
+        <div class="panel panel-theme panel1">
           <div class="panel-heading">
-
+            <h3>Most Frequent Sites Visited</h3>
           </div>
           <div class="panel-body">
             <div id="domain-chart"></div>
+            <h4 class="text-center">Time Spent at Website (min)</h4>
           </div>
         </div>
       </div>
 
       <div class="col-md-5">
-        <div class="panel panel-primary panel1">
+        <div class="panel panel-theme panel1">
           <div class="panel-heading">
-
+            <h3>Total Time Spent Browsing Websites (mins)</h3>
           </div>
           <div class="panel-body">
             <div id="hour-int-chart"></div>
+            <h4 class="text-center">Time of the Day (24hrs)</h4>
           </div>
         </div>
       </div>
 
       <div class="col-md-2">
-        <div class="panel panel-primary panel1">
+        <div class="panel panel-theme panel1">
           <div class="panel-heading">
             Goals
           </div>
@@ -61,15 +64,15 @@
 
     <div class="row">
       <div class="col-md-12">
-        <div class="container">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-
-            </div>
-            <div class="panel-body">
-              <div id="year-line-chart"></div>
-              <div id="year-chart"></div>
-            </div>
+        <div class="panel panel-theme panel2">
+          <div class="panel-heading">
+            <h3>All Time Browsing Duration (mins)</h3>
+          </div>
+          <div class="panel-body">
+            <div id="year-line-chart"></div>
+            <p class="text-center">Timestamp</p>
+            <div id="year-chart"></div>
+            <p class="text-center">Timestamp</p>
           </div>
         </div>
       </div>
