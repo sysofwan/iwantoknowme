@@ -1,0 +1,65 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:500);
+
+body {
+	padding: 50px;
+	font-family: Roboto;
+}
+
+h3 {
+	margin: 0;
+	text-align: center;
+}
+
+h4 {
+	padding-top: 20px;
+}
+
+.dc-chart .brush rect.extent {
+    fill: #dcda98;
+    fill-opacity: .30;
+}
+
+.dc-chart g.row text {
+    fill: black;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.panel1 {
+	height: 400px;
+}
+
+.panel2 {
+	width: inherit;
+}
+
+.panel-theme {
+  border-color: #a7e8c5;
+}
+
+.panel-theme > .panel-heading {
+  color: #2e2e2e;
+  background-color: #a7e8c5;
+  border-color: #a7e8c5;
+}
+
+.panel-theme > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: #a7e8c5;
+}
+
+.panel-theme > .panel-heading .badge {
+  color: #a7e8c5;
+  background-color: #fff;
+}
+
+.panel-theme > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: #a7e8c5;
+}
+
+.panel-theme {
+  background-color: #f1f1f1;
+}
+
+#year-chart {
+	padding-top: 50px;
+}

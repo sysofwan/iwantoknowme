@@ -1,21 +1,83 @@
 <!DOCTYPE HTML>
-<html>
+<html ng-app="browsingAnalyticsApp">
   <head>
     <title>Browsing Habit</title>
     <meta charset="UTF-8">
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/crossfilter/crossfilter.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/dcjs/dc.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="bower_components/dcjs/dc.css"></link>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="main.css"></link>
     <script src="db.js"></script>
     <script src="tabs-crossfilter.js"></script>
+    <script src="goalsController.js"></script>
   </head>
   <body>
-    <div id="year-chart"></div> 
-    <div id="year-line-chart"></div> 
-    <div id="domain-chart"></div>
-    <div id="hour-int-chart"></div>
-    <div id="hour-int1-chart"></div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="panel panel-theme panel1">
+          <div class="panel-heading">
+            <h3>Most Frequent Sites Visited</h3>
+          </div>
+          <div class="panel-body">
+            <div id="domain-chart"></div>
+            <h4 class="text-center">Time Spent at Website (min)</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="panel panel-theme panel1">
+          <div class="panel-heading">
+            <h3>Total Time Spent Browsing Websites (mins)</h3>
+          </div>
+          <div class="panel-body">
+            <div id="hour-int-chart"></div>
+            <h4 class="text-center">Time of the Day (24hrs)</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="panel panel-theme panel1">
+          <div class="panel-heading">
+            Goals
+          </div>
+          <div class="panel-body" ng-controller="GoalsController" ng-init="init()">
+
+            Domain: <input ng-model="domain">
+            Duration: <input ng-model="duration">
+            <button ng-click="addGoal()">Add goal</button>
+            <div ng-repeat="goal in goals">
+              {{goal.domain}}
+              {{goal.duration}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-theme panel2">
+          <div class="panel-heading">
+            <h3>All Time Browsing Duration (mins)</h3>
+          </div>
+          <div class="panel-body">
+            <div id="year-line-chart"></div>
+            <p class="text-center">Timestamp</p>
+            <div id="year-chart"></div>
+            <p class="text-center">Timestamp</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="browsinghabit.js"></script>
   </body>
 </html>
