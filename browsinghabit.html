@@ -51,7 +51,7 @@
           <div class="panel-body" ng-controller="GoalsController">
 
             Domain: <input ng-model="domain">
-            Duration: <input ng-model="duration">
+            Duration (minutes): <input ng-model="duration">
             <button ng-click="addGoal()">Add goal</button>
             <table>
               <tr ng-repeat="goal in goals track by $index">

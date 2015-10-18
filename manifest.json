@@ -14,7 +14,7 @@
   "background": {
     "scripts": ["bower_components/lodash/lodash.min.js",
                 "bower_components/crossfilter/crossfilter.min.js",
-                "util.js", "db.js", "data-collector.js"]
+                "util.js", "db.js", "data-collector.js", "goal-tracker.js"]
   },
   "browser_action": {
     "default_title": "iwantoknowme",
