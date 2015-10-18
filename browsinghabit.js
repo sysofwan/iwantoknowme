@@ -51,7 +51,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
             .margins({top: 20, left: 10, right: 10, bottom: 20})
             .dimension(domainDim)
             .group(domainDurationGroup)
-            .colors(['#a4a8a4', '#acdfd2', '#dcda98', '#f29885', '#a4a8a4', '#acdfd2', '#dcda98', '#f29885', '#a4a8a4', '#acdfd2', '#dcda98', '#f29885'])
+            .colors(['#f27a63'])
             .rowsCap(5)
             .elasticX(true)
             .xAxis().tickFormat(function(v) {return Math.floor(v/60000);}).ticks(4);
