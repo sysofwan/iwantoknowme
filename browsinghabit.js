@@ -2,17 +2,19 @@
 
 var dimHelper = function(dim) {
   return dim.group().reduceSum(function(d) {
-    return (d.endDate - d.startDate) / 60000;
+    return d.endDate - d.startDate;
   });
 };
 
 var yearChart = dc.barChart('#year-chart');
 tabsXFilter.getAllDataXFilter(function(crossFtr) {
   var dim = crossFtr.getMinuteDimension();
+  var minTime = dim.bottom(1)[0] ? dim.bottom(1)[0].startDate : new Date();
+  console.log(minTime);
 
   var durationGroup = dimHelper(dim);
 
-  yearChart.width(1200) 
+  yearChart.width(1200)
           .height(50)
           .margins({top: 0, right: 50, bottom: 20, left: 40})
           .dimension(dim)
@@ -20,7 +22,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
           .colors(['#f27863'])
           .centerBar(true)
           .gap(1)
-          .x(d3.time.scale().domain([new Date(2015, 9, 17, 14, 0, 0), new Date(2015, 9, 17, 15, 0, 0)]))
+          .x(d3.time.scale().domain([minTime, new Date()]))
           .xUnits(d3.time.minutes)
           .yAxis().tickValues([]);
 
@@ -31,20 +33,20 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
               .transitionDuration(1000)
               .margins({top: 30, right: 50, bottom: 25, left: 40})
               .dimension(dim)
-              .mouseZoomable(true)
               .rangeChart(yearChart)
-              .x(d3.time.scale().domain([new Date(2015, 9, 17, 14, 0, 0), new Date(2015, 9, 17, 15, 0, 0)]))
+              .x(d3.time.scale().domain([minTime, new Date()]))
               .round(d3.time.minutes.round)
               .xUnits(d3.time.minutes)
               .elasticY(true)
               .renderHorizontalGridLines(true)
               .group(durationGroup)
-              .colors(['#f27863']);
+              .colors(['#f27863'])
+              .yAxis().tickFormat(function(v) {return Math.floor(v/60000);});
 
   var domainChart = dc.rowChart('#domain-chart');
   var domainDim = crossFtr.getDomainDimension();
   var domainDurationGroup = dimHelper(domainDim);
-  domainChart.width(500)
+  domainChart.width(460)
             .height(175)
             .margins({top: 20, left: 10, right: 10, bottom: 20})
             .dimension(domainDim)
@@ -55,8 +57,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
             })
             .rowsCap(5)
             .elasticX(true)
-            .xAxis().ticks(4);
-  console.log(domainDurationGroup.top(5));
+            .xAxis().tickFormat(function(v) {return Math.floor(v/60000);}).ticks(4);
 
   var hourIntChart = dc.barChart('#hour-int-chart');
   var hourIntDim = crossFtr.getHourIntDimension();
@@ -68,13 +69,14 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
     .dimension(hourIntDim)
     .group(durationIntGroup)
     .colors(['#f27a63'])
-    .elasticY(true) 
-    .centerBar(true) 
-    .gap(1) 
+    .elasticY(true)
+    .centerBar(true)
+    .gap(1)
     .round(dc.round.floor)
     .x(d3.scale.linear().domain([0, 24]))
-    .renderHorizontalGridLines(true);
- 
+    .renderHorizontalGridLines(true)
+    .yAxis().tickFormat(function(v) {return Math.floor(v/60000);});
+
   hourIntChart.xAxis().tickFormat(
       function (v) { return v; });
   hourIntChart.yAxis().ticks(5);
