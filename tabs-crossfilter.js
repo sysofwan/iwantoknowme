@@ -10,7 +10,6 @@ var tabsXFilter = (function() {
 			});
 		};
 
-
 		tabsXFilter.getHourDimension = function() {
 			return this.dimension(function(d) {
 				var date = new Date(+d.startDate);
@@ -41,6 +40,13 @@ var tabsXFilter = (function() {
 				return d.domain;
 			});
 		};
+
+		tabsXFilter.getHourIntDimension = function() {
+			return this.dimension(function(d) {
+				return d.startDate.getHours();
+			});
+		};
+
 		return tabsXFilter;
 	};
 
