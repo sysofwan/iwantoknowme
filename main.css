@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:500);
 body {
-	padding: 25px;
 	font-family: Roboto;
+  padding-top: 50px;
 }
 
 h3 {
@@ -68,4 +68,40 @@ p {
 
 #year-chart {
 	padding-top: 10px;
+}
+
+.navbar {
+  min-height: 40px;
+}
+
+.navbar.navbar-default {
+  background-color: #acdfd2;
+}
+
+.navbar-header .navbar-brand {
+  padding: 5px 5px;
+  height: 40px;
+}
+
+.navbar-header .navbar-brand img {
+  height: 30px;
+}
+
+.nav.navbar-right .btn.btn-default {
+  margin-top: 3px;
+  margin-right: 2px;
+}
+
+div.modal .modal-content {
+  background-color: #acdfd2;
+}
+
+div.modal .modal-body {
+  background-color: #fff;
+}
+
+
+table .remove-goal span {
+  cursor: pointer;
+  color: red;
 }
