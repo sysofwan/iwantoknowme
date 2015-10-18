@@ -19,7 +19,8 @@ browsingAnalyticsApp.controller("GoalsController", function($scope) {
 	$scope.addGoal = function() {
 		var goal = {
 			domain: $scope.domain,
-			duration: parseInt($scope.duration)
+			duration: parseInt($scope.duration),
+			numAlerts: 0
 		};
 		$scope.goals.push(goal);
 		localStorage["goals"] = JSON.stringify($scope.goals);
