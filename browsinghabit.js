@@ -15,7 +15,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
   var durationGroup = dimHelper(dim);
 
   yearChart.width(1200)
-          .height(50)
+          .height(40)
           .margins({top: 0, right: 50, bottom: 20, left: 40})
           .dimension(dim)
           .group(durationGroup)
@@ -29,7 +29,7 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
   var yearLineChart = dc.lineChart('#year-line-chart');
   yearLineChart.renderArea(true)
               .width(1200)
-              .height(200)
+              .height(180)
               .transitionDuration(1000)
               .margins({top: 30, right: 50, bottom: 25, left: 40})
               .dimension(dim)
@@ -46,15 +46,12 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
   var domainChart = dc.rowChart('#domain-chart');
   var domainDim = crossFtr.getDomainDimension();
   var domainDurationGroup = dimHelper(domainDim);
-  domainChart.width(460)
+  domainChart.width(500)
             .height(175)
             .margins({top: 20, left: 10, right: 10, bottom: 20})
             .dimension(domainDim)
             .group(domainDurationGroup)
             .colors(['#a4a8a4', '#acdfd2', '#dcda98', '#f29885', '#a4a8a4', '#acdfd2', '#dcda98', '#f29885', '#a4a8a4', '#acdfd2', '#dcda98', '#f29885'])
-            .title(function (d) {
-                return -d.value;
-            })
             .rowsCap(5)
             .elasticX(true)
             .xAxis().tickFormat(function(v) {return Math.floor(v/60000);}).ticks(4);
@@ -81,5 +78,10 @@ tabsXFilter.getAllDataXFilter(function(crossFtr) {
       function (v) { return v; });
   hourIntChart.yAxis().ticks(5);
 
+  dc.renderAll();
+});
+
+$('#reset').on('click', function() {
+  dc.filterAll();
   dc.renderAll();
 });
