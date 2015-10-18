@@ -139,6 +139,11 @@
 
 	@media screen and (max-width: 736px) {
 
+		img {
+		    width: 90%; /* you can use % */
+		    height: auto;
+}
+		}
 		.container.\31 25\25 {
 			width: 100%;
 			max-width: 100%;
