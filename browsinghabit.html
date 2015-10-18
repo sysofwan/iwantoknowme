@@ -3,6 +3,7 @@
   <head>
     <title>Browsing Habit</title>
     <meta charset="UTF-8">
+    <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/crossfilter/crossfilter.js"></script>
     <script src="bower_components/d3/d3.js"></script>
@@ -48,6 +49,7 @@
 
             Domain: <input ng-model="domain">
             Duration: <input ng-model="duration">
+            <button ng-click="addGoal()">Add goal</button>
             <div ng-repeat="goal in goals">
               {{goal.domain}}
               {{goal.duration}}

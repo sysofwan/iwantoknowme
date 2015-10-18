@@ -8,7 +8,7 @@
 
   "permissions": [
     "tabs",
-    "unlimitedStorage"
+    "storage"
   ],
   "background": {
     "scripts": ["bower_components/lodash/lodash.min.js",
