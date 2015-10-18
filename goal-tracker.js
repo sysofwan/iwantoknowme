@@ -7,19 +7,23 @@
 		var startTime = new Date(endTime.getYear(), endTime.getMonth(), endTime.getDate());
 		var date = endTime.getDate();
 		if(prevDate != date) {
+			console.log(prevDate);
 			for(var goal of goals) {
-				goal.enable = true;
+				goal.numAlerts = 0;
 			}
 		}
 		tabsDB.filterRange("startDate", startTime, endTime, function(result) {
 			var selectedTabs = result;
-			console.log(selectedTabs);
 			for(var goal of goals) {
+				if(goal.numAlerts > 0) {
+					continue;
+				}
 				var tabsByDomain = _.filter(selectedTabs, { "domain": goal.domain });
 				var minutesSpent = _.sum(tabsByDomain, function(elem) {
 					return (elem.endDate - elem.startDate) / 1000 / 60;
 				});
 				if(minutesSpent >= goal.duration) {
+					goal.numAlerts++;
 					chrome.notifications.clear(goal.domain);
 					var notification = chrome.notifications.create(
 						goal.domain,
@@ -32,6 +36,9 @@
 					);
 				}
 			}
+			prevDate = date;
+			console.log(goals);
+			localStorage.setItem("goals", JSON.stringify(goals));
 		});
 	}, 60000);
 }());

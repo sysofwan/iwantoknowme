@@ -5,6 +5,28 @@
 	var currentTab;
 	var currentTabStartTime;
 
+	var checkViolatedGoals = function(currDomain) {
+		console.log("JUST GOT IN");
+		var goals = JSON.parse(localStorage["goals"]);
+		for(goal of goals) {
+			if(goal.numAlerts > 0 && goal.domain == currDomain) {
+				console.log("kak")
+				goal.numAlerts++;
+				chrome.notifications.clear(goal.domain);
+				var notification = chrome.notifications.create(
+					goal.domain,
+					{ 
+						type: "basic",
+						iconUrl: "angry.png",
+						title: goal.domain + " overload notice",
+						message: "Remember the project due next Monday?"
+					}
+				);
+			}
+		}
+		localStorage.setItem("goals", JSON.stringify(goals));
+	};
+
 	var saveTab = function() {
 		console.log('save tab called');
 		if (currentTab) {
@@ -39,6 +61,7 @@
 			if (!currentTab || currentTab.id != tab.id) {
 				changeCurrentTab(tab);
 			}
+			checkViolatedGoals(util.urlParser(tab.url).hostname);
 		});
 	});
 
@@ -47,6 +70,9 @@
 		if (tab.active && changeInfo.url
 				&& (!currentTab || (currentTab.url != changeInfo.url))) {
 			changeCurrentTab(tab);
+		}
+		if (tab.active && changeInfo.url) {
+			checkViolatedGoals(util.urlParser(changeInfo.url).hostname);
 		}
 	});
 

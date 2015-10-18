@@ -36,26 +36,26 @@ p {
 }
 
 .panel-theme {
-  border-color: #a7e8c5;
+  border-color: #acdfd2;
 }
 
 .panel-theme > .panel-heading {
   color: #2e2e2e;
-  background-color: #a7e8c5;
-  border-color: #a7e8c5;
+  background-color: #acdfd2;
+  border-color: #acdfd2;
 }
 
 .panel-theme > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #a7e8c5;
+  border-top-color: #acdfd2;
 }
 
 .panel-theme > .panel-heading .badge {
-  color: #a7e8c5;
+  color: #acdfd2;
   background-color: #fff;
 }
 
 .panel-theme > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #a7e8c5;
+  border-bottom-color: #acdfd2;
 }
 
 .panel-theme {
