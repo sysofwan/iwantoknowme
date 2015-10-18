@@ -26,7 +26,7 @@
 		currentTabStartTime = null;
 		if (tab) {
 			var protocol = util.urlParser(tab.url).protocol;
-			if (protocol != 'chrome:') {
+			if (!protocol.startsWith('chrome')) {
 				currentTab = tab;
 				currentTabStartTime = new Date();
 			}
@@ -43,8 +43,9 @@
 	});
 
 	tabsLib.onUpdated.addListener(function(tabId, changeInfo, tab) {
-		console.log('onUpdated called');
-		if (changeInfo.url && (!currentTab || (currentTab.url != changeInfo.url))) {
+		console.log('onUpdated called', tab.active);
+		if (tab.active && changeInfo.url
+				&& (!currentTab || (currentTab.url != changeInfo.url))) {
 			changeCurrentTab(tab);
 		}
 	});
