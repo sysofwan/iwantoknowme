@@ -3,9 +3,9 @@ var browsingAnalyticsApp = angular.module('browsingAnalyticsApp', []);
 browsingAnalyticsApp.controller("GoalsController", function($scope) {
 
 	var domainDim, xfilter;
-	var yest = new Date();
-	yest.setDate(yest.getDate() - 1);
-	tabsXFilter.getRangeDataXFilter(yest, new Date(), function(crossfilter) {
+	var startDate = new Date();
+	startDate.setHours(0,0,0,0);
+	tabsXFilter.getRangeDataXFilter(startDate, new Date(), function(crossfilter) {
 		xfilter = crossfilter;
 		domainDim = xfilter.getDomainDimension();
 		$scope.$apply();
