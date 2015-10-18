@@ -1,0 +1,18 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:500);
+
+body {
+	padding: 50px;
+	font-family: Roboto;
+}
+
+.panel1 {
+	height: 400px;
+}
+
+.panel2 {
+	width: match_parent;
+}
+
+#year-chart {
+	padding-top: 50px;
+}

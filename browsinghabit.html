@@ -6,16 +6,65 @@
     <script src="bower_components/crossfilter/crossfilter.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/dcjs/dc.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <link rel="stylesheet" type="text/css" href="bower_components/dcjs/dc.css"></link>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="main.css"></link>
     <script src="db.js"></script>
     <script src="tabs-crossfilter.js"></script>
   </head>
   <body>
-    <div id="year-chart"></div> 
-    <div id="year-line-chart"></div> 
-    <div id="domain-chart"></div>
-    <div id="hour-int-chart"></div>
-    <div id="hour-int1-chart"></div>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="panel panel-primary panel1">
+          <div class="panel-heading">
+
+          </div>
+          <div class="panel-body">
+            <div id="domain-chart"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5">
+        <div class="panel panel-primary panel1">
+          <div class="panel-heading">
+
+          </div>
+          <div class="panel-body">
+            <div id="hour-int-chart"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="panel panel-primary panel1">
+          <div class="panel-heading">
+
+          </div>
+          <div class="panel-body">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+
+            </div>
+            <div class="panel-body">
+              <div id="year-line-chart"></div>
+              <div id="year-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="browsinghabit.js"></script>
   </body>
 </html>
